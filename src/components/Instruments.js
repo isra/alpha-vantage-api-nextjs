@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,6 +7,13 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+
+// RXJS
+import { of } from 'rxjs';
+import { take, reduce } from 'rxjs/operators';
+
+// Services
+import InstrumentsService from '../../src/services/instruments.service';
 
 // Components
 import FilterInstrument from './FilterInstrument';
@@ -21,16 +28,27 @@ function createData(symbol, name) {
   return { symbol, name };
 }
 
-const rows = [
-  createData('A', 'AGILENT TECHNOLOGIES INC'),
-  createData('AA', 'ALCOA CORPORATION'),
-  createData('AACG', 'ATA CREATIVITY GLOBAL SPON ADS EACH REP 2 ORD SHS'),
-  createData('AAL', 'AMERICAN AIRLINES GROUP INC'),
-  createData('AAMC', 'ALTISOURCE ASSET MANAGEMENT CORP'),
-];
-
 const Instruments = ({}) => {
   const classes = useStyles();
+
+  const [instruments, setInstruments] = useState([]);
+  useEffect(() => {
+    const instrumentsService = new InstrumentsService();
+    /**
+     * Como el servicio no tiene paginación se toma 5 elementos del json
+     */
+    instrumentsService.getData().subscribe((data) => {
+      const sliceDataSubscription = of(...data).pipe(
+        take(5),
+        reduce((acc, item) => [...acc, item], [])
+      );
+      sliceDataSubscription.subscribe((response) => setInstruments(response));
+
+      return () => {
+        sliceDataSubscription.unsubscribe();
+      };
+    });
+  }, []);
 
   return (
     <React.Fragment>
@@ -41,15 +59,19 @@ const Instruments = ({}) => {
             <TableRow>
               <TableCell style={{ width: 100 }}>Symbol</TableCell>
               <TableCell>Name</TableCell>
+              <TableCell>IPO Year</TableCell>
+              <TableCell>Last Sale</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.symbol}>
+            {instruments.map((row) => (
+              <TableRow key={row.Symbol}>
                 <TableCell component='th' scope='row'>
-                  {row.symbol}
+                  {row.Symbol}
                 </TableCell>
-                <TableCell>{row.name}</TableCell>
+                <TableCell>{row.Name}</TableCell>
+                <TableCell align='left'>$ {row.LastSale.toFixed(2)}</TableCell>
+                <TableCell>{row.IPOyear}</TableCell>
               </TableRow>
             ))}
           </TableBody>
