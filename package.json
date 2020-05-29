@@ -7,9 +7,14 @@
     "@material-ui/icons": "^4.9.1",
     "clsx": "latest",
     "next": "latest",
+    "next-redux-wrapper": "^6.0.0",
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
     "rxjs": "^6.5.5"
   },
   "scripts": {

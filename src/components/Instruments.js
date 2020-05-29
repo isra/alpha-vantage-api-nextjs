@@ -8,12 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-// RXJS
-import { of } from 'rxjs';
-import { take, reduce } from 'rxjs/operators';
-
-// Services
-import InstrumentsService from '../../src/services/instruments.service';
+// Redux -
+import { useSelector } from 'react-redux';
 
 // Components
 import FilterInstrument from './FilterInstrument';
@@ -24,31 +20,13 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(symbol, name) {
-  return { symbol, name };
-}
-
 const Instruments = ({}) => {
   const classes = useStyles();
-
   const [instruments, setInstruments] = useState([]);
+  const items = useSelector((state) => state.instruments.items);
   useEffect(() => {
-    const instrumentsService = new InstrumentsService();
-    /**
-     * Como el servicio no tiene paginación se toma 5 elementos del json
-     */
-    instrumentsService.getData().subscribe((data) => {
-      const sliceDataSubscription = of(...data).pipe(
-        take(5),
-        reduce((acc, item) => [...acc, item], [])
-      );
-      sliceDataSubscription.subscribe((response) => setInstruments(response));
-
-      return () => {
-        sliceDataSubscription.unsubscribe();
-      };
-    });
-  }, []);
+    setInstruments(items);
+  }, [items]);
 
   return (
     <React.Fragment>
