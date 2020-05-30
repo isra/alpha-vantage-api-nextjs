@@ -2,7 +2,7 @@ import { ajax } from 'rxjs/ajax';
 import { map, catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
-const HOST = '/assets/json/instruments.json';
+const HOST = '/assets/json/instruments.min.json';
 
 export default class InstrumentsService {
   constructor() {

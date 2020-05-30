@@ -38,9 +38,14 @@ function MyApp(props) {
   );
 }
 
+/**
+ * @todo
+ * pageProps: PropTypes.object.isRequired,
+ */
+
 MyApp.propTypes = {
   Component: PropTypes.elementType.isRequired,
-  pageProps: PropTypes.object.isRequired,
+  pageProps: PropTypes.object,
 };
 
 export default withReduxStore(MyApp);
