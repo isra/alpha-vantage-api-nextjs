@@ -4,6 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 
 import instrumentsReducer from './reducers/instruments.reducer';
+import chartsReducer from './reducers/charts.reducer';
 
 /* export const rootReducer = combineReducers({
   instruments: ContactsReducer,
@@ -11,6 +12,7 @@ import instrumentsReducer from './reducers/instruments.reducer';
 
 const reducers = combineReducers({
   instruments: instrumentsReducer,
+  charts: chartsReducer,
 });
 
 export default function getStore(initialState) {
