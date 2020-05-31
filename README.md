@@ -1,13 +1,19 @@
-# Next.js example
+# Description
+
+Nextjs para consumir servicio de Alpha Vantage
+
+- Nextjs
+- Hooks
+- Redux
+- Rxjs
+- Material-UI
+- AMChart
 
 ## How to use
 
-Download the example [or clone the repo](https://github.com/mui-org/material-ui):
+Repo
 
-```sh
-curl https://codeload.github.com/mui-org/material-ui/tar.gz/master | tar -xz --strip=2  material-ui-master/examples/nextjs
-cd nextjs
-```
+- [https://github.com/isra/alpha-vantage-api-nextjs.git](https://github.com/isra/alpha-vantage-api-nextjs.git)
 
 Install it and run:
 
@@ -16,10 +22,8 @@ npm install
 npm run dev
 ```
 
-or:
+Demo:
 
-[![Edit on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/mui-org/material-ui/tree/master/examples/nextjs)
-
-## The idea behind the example
-
-[Next.js](https://github.com/zeit/next.js) is a framework for server-rendered React apps.
+- [https://alpha-vantage-api-nextjs-d9ong8e30.now.sh/](https://alpha-vantage-api-nextjs-d9ong8e30.now.sh/)
+- [https://alpha-vantage-api-nextjs.now.sh/](https://alpha-vantage-api-nextjs.now.sh/)
+- [https://alpha-vantage-api-nextjs.isra.now.sh/](https://alpha-vantage-api-nextjs.isra.now.sh/)
