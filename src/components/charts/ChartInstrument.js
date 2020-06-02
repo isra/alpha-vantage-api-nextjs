@@ -1,19 +1,21 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+import { Grid, Box, Link, Paper } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 // Chart
 import renderChartFn, { disposeChartFn } from '../../../lib/renderchart';
 
-class ChartInstrument extends React.Component {
-  state = {
-    generic: {},
-  };
+// actions
+import { changeEndpointByChart } from '../../../store/actions/charts.actions';
 
+// Redux
+import { connect } from 'react-redux';
+
+const TIME_SERIES_DAILY = 'TIME_SERIES_DAILY';
+const TIME_SERIES_MONTHLY = 'TIME_SERIES_MONTHLY';
+
+class ChartInstrument extends React.Component {
   constructor(props) {
     super(props);
     const { header, items } = JSON.parse(this.props.jsonChart);
@@ -33,27 +35,45 @@ class ChartInstrument extends React.Component {
     disposeChartFn();
   }
 
+  handleChangeChartClick = (typeFn) => {
+    this.props.changeEndpointByChart(this.state.header.symbol, typeFn);
+  };
+
   render() {
     const { information, symbol, lastRefresh } = this.state.header || {};
     const { idChart } = this.props;
 
     return (
       <Grid item xs={12}>
-        <Typography component='div' variant='body1'>
-          <Grid container spacing={0}>
-            <Grid item xs={12} sm={6} m={0}>
-              <Box color='text.primary'>{symbol}</Box>
-            </Grid>
-            <Grid item xs={12} sm={6} m={0}>
-              <Box color='text.secondary' style={{ textAlign: 'right' }}>
-                Last update: {lastRefresh}
-              </Box>
-            </Grid>
-            <Grid item xs={12} m={0}>
-              <Box color='text.disabled'>{information}</Box>
-            </Grid>
+        <Grid container spacing={0}>
+          <Grid item xs={12} sm={6} m={0}>
+            <Box color='text.primary' style={{ fontWeight: 600 }}>
+              {symbol}
+            </Box>
           </Grid>
-        </Typography>
+          <Grid item xs={12} sm={6} m={0}>
+            <Box color='text.secondary' style={{ textAlign: 'right' }}>
+              <Link
+                component='button'
+                variant='body2'
+                onClick={() => this.handleChangeChartClick(TIME_SERIES_DAILY)}
+              >
+                Time Series (Daily)
+              </Link>{' '}
+              |{' '}
+              <Link
+                component='button'
+                variant='body2'
+                onClick={() => this.handleChangeChartClick(TIME_SERIES_MONTHLY)}
+              >
+                Monthly Time Series
+              </Link>
+            </Box>
+          </Grid>
+          <Grid color='text.secondary' item xs={12} m={0}>
+            {information}
+          </Grid>
+        </Grid>
         <Paper>
           <div key={idChart} style={styleChart} id={idChart}></div>
         </Paper>
@@ -70,6 +90,7 @@ const styleChart = {
 ChartInstrument.propTypes = {
   jsonChart: PropTypes.string.isRequired,
   idChart: PropTypes.string.isRequired,
+  changeEndpointByChart: PropTypes.func.isRequired,
 };
 
-export default ChartInstrument;
+export default connect(null, { changeEndpointByChart })(ChartInstrument);

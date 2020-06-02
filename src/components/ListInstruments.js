@@ -37,7 +37,7 @@ const ListInstruments = ({}) => {
   const handleItemClick = (item, e) => {
     e.preventDefault();
     // set type chart by default
-    dispatch(loadChart('TIME_SERIES_DAILY', 'intraday', item.Symbol));
+    dispatch(loadChart(item.Symbol));
   };
 
   return (
