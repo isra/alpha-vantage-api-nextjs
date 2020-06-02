@@ -7,6 +7,9 @@ export const CHANGE_ENDPOINT_BY_CHART =
 // Serviced
 import AlphaVantageService from '../../src/services/alphavantage.service';
 
+// Actions
+import * as fromAppActions from './app.actions';
+
 export const loadChart = (symbol) => (dispatch) => {
   const alphaVantageService = new AlphaVantageService();
   alphaVantageService.getData(symbol).subscribe((response) => {
@@ -14,6 +17,13 @@ export const loadChart = (symbol) => (dispatch) => {
       type: LOAD_CHART,
       payload: response,
     });
+
+    setTimeout(() => {
+      dispatch({
+        type: fromAppActions.LOADING,
+        payload: false,
+      });
+    }, 1500);
   });
 };
 
@@ -31,10 +41,24 @@ export const getHistory = () => {
 
 export const changeEndpointByChart = (symbol, queryFn) => (dispatch) => {
   const alphaVantageService = new AlphaVantageService();
+
+  dispatch({
+    type: fromAppActions.LOADING,
+    payload: true,
+  });
+
   alphaVantageService.getData(symbol, queryFn).subscribe((response) => {
     dispatch({
       type: CHANGE_ENDPOINT_BY_CHART,
       payload: response,
     });
+
+    // spinner
+    setTimeout(() => {
+      dispatch({
+        type: fromAppActions.LOADING,
+        payload: false,
+      });
+    }, 1500);
   });
 };

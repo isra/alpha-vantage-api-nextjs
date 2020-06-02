@@ -11,6 +11,7 @@ import { loadInstruments } from '../store/actions/instruments.actions';
 // Layout
 import Header from './layout/Header';
 import Navbar from './layout/elements/Navbar';
+import Progress from './layout/Progress';
 
 // Components
 import Instruments from '../src/components/Instruments';
@@ -36,6 +37,7 @@ const Index = () => {
       <Container>
         <ChartsInstruments />
       </Container>
+      <Progress />
     </React.Fragment>
   );
 };

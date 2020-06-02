@@ -1,19 +1,14 @@
 import { ajax } from 'rxjs/ajax';
 import { map, catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
+// import { XMLHttpRequest } from 'xmlhttprequest';
 
 import parseReponseAlphavantange from '../../lib/parse-response-alphavantage';
 
-// Test
-// const HOST = '/assets/json/xdia.json';
-// Example
-// https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=AAPL&interval=60min&apikey=9AFJDL5KCXOB2ZX5
-// https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=AAPL&apikey=9AFJDL5KCXOB2ZX5
 const HOST = 'https://www.alphavantage.co';
 const APIKEY = '9AFJDL5KCXOB2ZX5';
 
 export default class AlphaVantageService {
-  // intraday: 'Time Series (Daily)',
   constructor() {
     this.typeFn = {
       TIME_SERIES_DAILY_INTERVAL: 'Time Series ([interval])',

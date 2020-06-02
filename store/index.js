@@ -5,14 +5,12 @@ import thunkMiddleware from 'redux-thunk';
 
 import instrumentsReducer from './reducers/instruments.reducer';
 import chartsReducer from './reducers/charts.reducer';
-
-/* export const rootReducer = combineReducers({
-  instruments: ContactsReducer,
-}); */
+import appReducer from './reducers/app.reducers';
 
 const reducers = combineReducers({
   instruments: instrumentsReducer,
   charts: chartsReducer,
+  app: appReducer,
 });
 
 export default function getStore(initialState) {

@@ -16,6 +16,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 // Redux - Actions
 import { loadChart } from '../../store/actions/charts.actions';
+import { loadingProcess } from '../../store/actions/app.actions';
 
 const useStyles = makeStyles({
   table: {
@@ -37,6 +38,7 @@ const ListInstruments = ({}) => {
   const handleItemClick = (item, e) => {
     e.preventDefault();
     // set type chart by default
+    dispatch(loadingProcess(true));
     dispatch(loadChart(item.Symbol));
   };
 
