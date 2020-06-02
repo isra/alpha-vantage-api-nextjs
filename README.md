@@ -24,6 +24,6 @@ npm run dev
 
 Demo:
 
-- [https://alpha-vantage-api-nextjs-d9ong8e30.now.sh/](https://alpha-vantage-api-nextjs-d9ong8e30.now.sh/)
-- [https://alpha-vantage-api-nextjs.now.sh/](https://alpha-vantage-api-nextjs.now.sh/)
 - [https://alpha-vantage-api-nextjs.isra.now.sh/](https://alpha-vantage-api-nextjs.isra.now.sh/)
+- [https://alpha-vantage-api-nextjs.now.sh/](https://alpha-vantage-api-nextjs.now.sh/)
+
